@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CaseList" targetNamespace="http://tempuri.org/CaseList.xsd" xmlns:mstns="http://tempuri.org/CaseList.xsd" xmlns="http://tempuri.org/CaseList.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CaseList" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="CaseList" msprop:Generator_DataSetName="CaseList">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTableCaseList" msprop:Generator_RowEvHandlerName="DataTableCaseListRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableCaseListRowDeleted" msprop:Generator_RowDeletingName="DataTableCaseListRowDeleting" msprop:Generator_RowEvArgName="DataTableCaseListRowChangeEvent" msprop:Generator_TablePropName="DataTableCaseList" msprop:Generator_RowChangedName="DataTableCaseListRowChanged" msprop:Generator_RowChangingName="DataTableCaseListRowChanging" msprop:Generator_TableClassName="DataTableCaseListDataTable" msprop:Generator_RowClassName="DataTableCaseListRow" msprop:Generator_TableVarName="tableDataTableCaseList" msprop:Generator_UserTableName="DataTableCaseList">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="進捗状況" msprop:Generator_ColumnPropNameInRow="進捗状況" msprop:Generator_ColumnPropNameInTable="進捗状況Column" msprop:Generator_ColumnVarNameInTable="column進捗状況" msprop:Generator_UserColumnName="進捗状況" type="xs:string" minOccurs="0" />
+              <xs:element name="事務所整理番号" msprop:Generator_ColumnPropNameInRow="事務所整理番号" msprop:Generator_ColumnPropNameInTable="事務所整理番号Column" msprop:Generator_ColumnVarNameInTable="column事務所整理番号" msprop:Generator_UserColumnName="事務所整理番号" type="xs:string" minOccurs="0" />
+              <xs:element name="顧客整理番号" msprop:Generator_ColumnPropNameInRow="顧客整理番号" msprop:Generator_ColumnPropNameInTable="顧客整理番号Column" msprop:Generator_ColumnVarNameInTable="column顧客整理番号" msprop:Generator_UserColumnName="顧客整理番号" type="xs:string" minOccurs="0" />
+              <xs:element name="出願期限" msprop:Generator_ColumnPropNameInRow="出願期限" msprop:Generator_ColumnPropNameInTable="出願期限Column" msprop:Generator_ColumnVarNameInTable="column出願期限" msprop:Generator_UserColumnName="出願期限" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

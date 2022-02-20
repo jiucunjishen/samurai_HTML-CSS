@@ -9,16 +9,16 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="CaseList" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="CaseList" msprop:Generator_DataSetName="CaseList">
+  <xs:element name="CaseList" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="CaseList" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CaseList">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DataTableCaseList" msprop:Generator_RowEvHandlerName="DataTableCaseListRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableCaseListRowDeleted" msprop:Generator_RowDeletingName="DataTableCaseListRowDeleting" msprop:Generator_RowEvArgName="DataTableCaseListRowChangeEvent" msprop:Generator_TablePropName="DataTableCaseList" msprop:Generator_RowChangedName="DataTableCaseListRowChanged" msprop:Generator_RowChangingName="DataTableCaseListRowChanging" msprop:Generator_TableClassName="DataTableCaseListDataTable" msprop:Generator_RowClassName="DataTableCaseListRow" msprop:Generator_TableVarName="tableDataTableCaseList" msprop:Generator_UserTableName="DataTableCaseList">
+        <xs:element name="DataTableCaseList" msprop:Generator_RowEvHandlerName="DataTableCaseListRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableCaseListRowDeleted" msprop:Generator_RowDeletingName="DataTableCaseListRowDeleting" msprop:Generator_RowEvArgName="DataTableCaseListRowChangeEvent" msprop:Generator_TablePropName="DataTableCaseList" msprop:Generator_RowChangedName="DataTableCaseListRowChanged" msprop:Generator_UserTableName="DataTableCaseList" msprop:Generator_RowChangingName="DataTableCaseListRowChanging" msprop:Generator_RowClassName="DataTableCaseListRow" msprop:Generator_TableClassName="DataTableCaseListDataTable" msprop:Generator_TableVarName="tableDataTableCaseList">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="進捗状況" msprop:Generator_ColumnPropNameInRow="進捗状況" msprop:Generator_ColumnPropNameInTable="進捗状況Column" msprop:Generator_ColumnVarNameInTable="column進捗状況" msprop:Generator_UserColumnName="進捗状況" type="xs:string" minOccurs="0" />
-              <xs:element name="事務所整理番号" msprop:Generator_ColumnPropNameInRow="事務所整理番号" msprop:Generator_ColumnPropNameInTable="事務所整理番号Column" msprop:Generator_ColumnVarNameInTable="column事務所整理番号" msprop:Generator_UserColumnName="事務所整理番号" type="xs:string" minOccurs="0" />
-              <xs:element name="顧客整理番号" msprop:Generator_ColumnPropNameInRow="顧客整理番号" msprop:Generator_ColumnPropNameInTable="顧客整理番号Column" msprop:Generator_ColumnVarNameInTable="column顧客整理番号" msprop:Generator_UserColumnName="顧客整理番号" type="xs:string" minOccurs="0" />
-              <xs:element name="出願期限" msprop:Generator_ColumnPropNameInRow="出願期限" msprop:Generator_ColumnPropNameInTable="出願期限Column" msprop:Generator_ColumnVarNameInTable="column出願期限" msprop:Generator_UserColumnName="出願期限" type="xs:string" minOccurs="0" />
+              <xs:element name="ケース番号" msprop:Generator_ColumnPropNameInTable="ケース番号Column" msprop:Generator_ColumnPropNameInRow="ケース番号" msprop:Generator_UserColumnName="ケース番号" msprop:Generator_ColumnVarNameInTable="columnケース番号" type="xs:string" minOccurs="0" />
+              <xs:element name="クライアント整理番号" msprop:Generator_ColumnPropNameInTable="クライアント整理番号Column" msprop:Generator_ColumnPropNameInRow="クライアント整理番号" msprop:Generator_UserColumnName="クライアント整理番号" msprop:Generator_ColumnVarNameInTable="columnクライアント整理番号" type="xs:string" minOccurs="0" />
+              <xs:element name="クライアント名" msprop:Generator_ColumnPropNameInTable="クライアント名Column" msprop:Generator_ColumnPropNameInRow="クライアント名" msprop:Generator_UserColumnName="クライアント名" msprop:Generator_ColumnVarNameInTable="columnクライアント名" type="xs:string" minOccurs="0" />
+              <xs:element name="期限" msprop:Generator_UserColumnName="期限" msprop:Generator_ColumnPropNameInTable="期限Column" msprop:Generator_ColumnPropNameInRow="期限" msprop:Generator_ColumnVarNameInTable="column期限" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

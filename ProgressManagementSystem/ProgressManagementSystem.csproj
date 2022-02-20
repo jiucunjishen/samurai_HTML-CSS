@@ -92,11 +92,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Case.cs" />
     <Compile Include="CaseList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CaseList.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

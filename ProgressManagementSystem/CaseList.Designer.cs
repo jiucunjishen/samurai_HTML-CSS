@@ -279,6 +279,8 @@ namespace ProgressManagementSystem {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTableCaseListDataTable : global::System.Data.TypedTableBase<DataTableCaseListRow> {
             
+            private global::System.Data.DataColumn column実務担当者;
+            
             private global::System.Data.DataColumn columnケース番号;
             
             private global::System.Data.DataColumn columnクライアント整理番号;
@@ -318,6 +320,14 @@ namespace ProgressManagementSystem {
             protected DataTableCaseListDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn 実務担当者Column {
+                get {
+                    return this.column実務担当者;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -389,9 +399,10 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public DataTableCaseListRow AddDataTableCaseListRow(string ケース番号, string クライアント整理番号, string クライアント名, string 期限) {
+            public DataTableCaseListRow AddDataTableCaseListRow(string 実務担当者, string ケース番号, string クライアント整理番号, string クライアント名, string 期限) {
                 DataTableCaseListRow rowDataTableCaseListRow = ((DataTableCaseListRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        実務担当者,
                         ケース番号,
                         クライアント整理番号,
                         クライアント名,
@@ -418,6 +429,7 @@ namespace ProgressManagementSystem {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
+                this.column実務担当者 = base.Columns["実務担当者"];
                 this.columnケース番号 = base.Columns["ケース番号"];
                 this.columnクライアント整理番号 = base.Columns["クライアント整理番号"];
                 this.columnクライアント名 = base.Columns["クライアント名"];
@@ -427,6 +439,8 @@ namespace ProgressManagementSystem {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
+                this.column実務担当者 = new global::System.Data.DataColumn("実務担当者", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column実務担当者);
                 this.columnケース番号 = new global::System.Data.DataColumn("ケース番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnケース番号);
                 this.columnクライアント整理番号 = new global::System.Data.DataColumn("クライアント整理番号", typeof(string), null, global::System.Data.MappingType.Element);
@@ -577,6 +591,22 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string 実務担当者 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableCaseList.実務担当者Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DataTableCaseList\' にある列 \'実務担当者\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableCaseList.実務担当者Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string ケース番号 {
                 get {
                     try {
@@ -637,6 +667,18 @@ namespace ProgressManagementSystem {
                 set {
                     this[this.tableDataTableCaseList.期限Column] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Is実務担当者Null() {
+                return this.IsNull(this.tableDataTableCaseList.実務担当者Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Set実務担当者Null() {
+                this[this.tableDataTableCaseList.実務担当者Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxEngineer = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBoxNumberOfCases = new System.Windows.Forms.TextBox();
             this.dataGridViewCaseList = new System.Windows.Forms.DataGridView();
+            this.実務担当者DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ケース番号DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.クライアント整理番号DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.クライアント名DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.期限DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataTableCaseListBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.dataTableCaseListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.caseList = new ProgressManagementSystem.CaseList();
             this.checkBoxDueOn = new System.Windows.Forms.CheckBox();
             this.checkBoxDueOff = new System.Windows.Forms.CheckBox();
@@ -53,7 +55,7 @@
             this.linkLabelClientInformation = new System.Windows.Forms.LinkLabel();
             this.linkLabelElectricalWrapper = new System.Windows.Forms.LinkLabel();
             this.linkLabelElectricalLibrary = new System.Windows.Forms.LinkLabel();
-            this.Note = new System.Windows.Forms.TextBox();
+            this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonCaseReceived = new System.Windows.Forms.Button();
             this.buttonMeeting = new System.Windows.Forms.Button();
             this.buttonSupplementReceived = new System.Windows.Forms.Button();
@@ -67,13 +69,10 @@
             this.textBoxDraftSent = new System.Windows.Forms.TextBox();
             this.textBoxDraftDays = new System.Windows.Forms.TextBox();
             this.DraftDays = new System.Windows.Forms.Label();
-            this.dataTableCaseListBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataTableCaseListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonStore = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCaseList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.caseList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.caseList)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxEngineer
@@ -109,32 +108,34 @@
             // 
             // dataGridViewCaseList
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.dataGridViewCaseList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dataGridViewCaseList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCaseList.AutoGenerateColumns = false;
             this.dataGridViewCaseList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCaseList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.実務担当者DataGridViewTextBoxColumn,
             this.ケース番号DataGridViewTextBoxColumn,
+            this.クライアント整理番号DataGridViewTextBoxColumn,
             this.クライアント名DataGridViewTextBoxColumn,
             this.期限DataGridViewTextBoxColumn});
-            this.dataGridViewCaseList.DataSource = this.dataTableCaseListBindingSource2;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewCaseList.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewCaseList.DataSource = this.dataTableCaseListBindingSource;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCaseList.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewCaseList.Location = new System.Drawing.Point(36, 130);
             this.dataGridViewCaseList.Name = "dataGridViewCaseList";
             this.dataGridViewCaseList.RowHeadersWidth = 51;
@@ -143,11 +144,23 @@
             this.dataGridViewCaseList.TabIndex = 7;
             this.dataGridViewCaseList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCaseList_CellClick);
             // 
+            // 実務担当者DataGridViewTextBoxColumn
+            // 
+            this.実務担当者DataGridViewTextBoxColumn.DataPropertyName = "実務担当者";
+            this.実務担当者DataGridViewTextBoxColumn.HeaderText = "実務担当者";
+            this.実務担当者DataGridViewTextBoxColumn.Name = "実務担当者DataGridViewTextBoxColumn";
+            // 
             // ケース番号DataGridViewTextBoxColumn
             // 
             this.ケース番号DataGridViewTextBoxColumn.DataPropertyName = "ケース番号";
             this.ケース番号DataGridViewTextBoxColumn.HeaderText = "ケース番号";
             this.ケース番号DataGridViewTextBoxColumn.Name = "ケース番号DataGridViewTextBoxColumn";
+            // 
+            // クライアント整理番号DataGridViewTextBoxColumn
+            // 
+            this.クライアント整理番号DataGridViewTextBoxColumn.DataPropertyName = "クライアント整理番号";
+            this.クライアント整理番号DataGridViewTextBoxColumn.HeaderText = "クライアント整理番号";
+            this.クライアント整理番号DataGridViewTextBoxColumn.Name = "クライアント整理番号DataGridViewTextBoxColumn";
             // 
             // クライアント名DataGridViewTextBoxColumn
             // 
@@ -161,10 +174,10 @@
             this.期限DataGridViewTextBoxColumn.HeaderText = "期限";
             this.期限DataGridViewTextBoxColumn.Name = "期限DataGridViewTextBoxColumn";
             // 
-            // dataTableCaseListBindingSource2
+            // dataTableCaseListBindingSource
             // 
-            this.dataTableCaseListBindingSource2.DataMember = "DataTableCaseList";
-            this.dataTableCaseListBindingSource2.DataSource = this.caseList;
+            this.dataTableCaseListBindingSource.DataMember = "DataTableCaseList";
+            this.dataTableCaseListBindingSource.DataSource = this.caseList;
             // 
             // caseList
             // 
@@ -307,16 +320,16 @@
             this.linkLabelElectricalLibrary.Text = "電子図書館";
             this.linkLabelElectricalLibrary.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelElectricalLibrary_LinkClicked);
             // 
-            // Note
+            // textBoxNote
             // 
-            this.Note.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Note.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Note.Location = new System.Drawing.Point(787, 130);
-            this.Note.Multiline = true;
-            this.Note.Name = "Note";
-            this.Note.Size = new System.Drawing.Size(340, 133);
-            this.Note.TabIndex = 20;
-            this.Note.Text = "メモ";
+            this.textBoxNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.textBoxNote.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBoxNote.Location = new System.Drawing.Point(787, 130);
+            this.textBoxNote.Multiline = true;
+            this.textBoxNote.Name = "textBoxNote";
+            this.textBoxNote.Size = new System.Drawing.Size(340, 133);
+            this.textBoxNote.TabIndex = 20;
+            this.textBoxNote.Text = "メモ";
             // 
             // buttonCaseReceived
             // 
@@ -450,21 +463,23 @@
             this.DraftDays.TabIndex = 46;
             this.DraftDays.Text = "ドラフト日数";
             // 
-            // dataTableCaseListBindingSource1
+            // buttonStore
             // 
-            this.dataTableCaseListBindingSource1.DataMember = "DataTableCaseList";
-            this.dataTableCaseListBindingSource1.DataSource = this.caseList;
-            // 
-            // dataTableCaseListBindingSource
-            // 
-            this.dataTableCaseListBindingSource.DataMember = "DataTableCaseList";
-            this.dataTableCaseListBindingSource.DataSource = this.caseList;
+            this.buttonStore.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonStore.Location = new System.Drawing.Point(524, 25);
+            this.buttonStore.Name = "buttonStore";
+            this.buttonStore.Size = new System.Drawing.Size(164, 72);
+            this.buttonStore.TabIndex = 47;
+            this.buttonStore.Text = "保存";
+            this.buttonStore.UseVisualStyleBackColor = true;
+            this.buttonStore.Click += new System.EventHandler(this.buttonStore_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 739);
+            this.Controls.Add(this.buttonStore);
             this.Controls.Add(this.DraftDays);
             this.Controls.Add(this.textBoxDraftDays);
             this.Controls.Add(this.textBoxDraftSent);
@@ -478,7 +493,7 @@
             this.Controls.Add(this.buttonMeeting);
             this.Controls.Add(this.buttonCaseReceived);
             this.Controls.Add(this.monthCalendar);
-            this.Controls.Add(this.Note);
+            this.Controls.Add(this.textBoxNote);
             this.Controls.Add(this.linkLabelElectricalLibrary);
             this.Controls.Add(this.linkLabelElectricalWrapper);
             this.Controls.Add(this.linkLabelClientInformation);
@@ -499,10 +514,8 @@
             this.Text = "進捗管理システム";
             this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCaseList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.caseList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.caseList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,7 +527,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.TextBox textBoxNumberOfCases;
         private System.Windows.Forms.DataGridView dataGridViewCaseList;
-        private CaseList caseList;
         private System.Windows.Forms.CheckBox checkBoxDueOn;
         private System.Windows.Forms.CheckBox checkBoxDueOff;
         private System.Windows.Forms.CheckBox checkBoxDomesticApplication;
@@ -527,8 +539,7 @@
         private System.Windows.Forms.LinkLabel linkLabelClientInformation;
         private System.Windows.Forms.LinkLabel linkLabelElectricalWrapper;
         private System.Windows.Forms.LinkLabel linkLabelElectricalLibrary;
-        private System.Windows.Forms.TextBox Note;
-        private System.Windows.Forms.BindingSource dataTableCaseListBindingSource;
+        private System.Windows.Forms.TextBox textBoxNote;
         private System.Windows.Forms.Button buttonCaseReceived;
         private System.Windows.Forms.Button buttonMeeting;
         private System.Windows.Forms.Button buttonSupplementReceived;
@@ -542,11 +553,14 @@
         private System.Windows.Forms.TextBox textBoxDraftSent;
         private System.Windows.Forms.TextBox textBoxDraftDays;
         private System.Windows.Forms.Label DraftDays;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 実務担当者DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ケース番号DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn クライアント整理番号DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn クライアント名DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn 期限DataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource dataTableCaseListBindingSource1;
-        private System.Windows.Forms.BindingSource dataTableCaseListBindingSource2;
+        private System.Windows.Forms.BindingSource dataTableCaseListBindingSource;
+        private CaseList caseList;
+        private System.Windows.Forms.Button buttonStore;
     }
 }
 

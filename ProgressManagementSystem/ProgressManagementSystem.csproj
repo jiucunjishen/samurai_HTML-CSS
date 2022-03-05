@@ -93,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Case.cs" />
+    <Compile Include="CaseList.cs">
+      <DependentUpon>CaseList.xsd</DependentUpon>
+    </Compile>
     <Compile Include="CaseList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

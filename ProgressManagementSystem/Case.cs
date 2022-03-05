@@ -40,7 +40,7 @@ namespace ProgressManagementSystem
         public string Region { get; set; }
 
         //期限
-        public string DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         //スレッドリンク
         public string Thread { get; set; }
@@ -52,18 +52,27 @@ namespace ProgressManagementSystem
         public string Rooster { get; set; }
 
         //受託日
-        public string CaseReceived { get; set; }
+        public DateTime CaseReceived { get; set; }
 
         //面談日
-        public string Meeting { get; set; }
+        public DateTime Meeting { get; set; }
 
         //補充資料受領日
-        public string SupplementReceived { get; set; }
+        public DateTime SupplementReceived { get; set; }
 
         //ドラフト期限
-        public string DraftDeadline { get; set; }
+        public DateTime DraftDeadline { get; set; }
 
         //ドラフト送付日
-        public string DraftSent { get; set; }
+        public DateTime DraftSent { get; set; }
+
+        //ドラフト日数
+        public int DraftDays { get; set; }
+
+        //庁提出日
+        public DateTime FiledDate { get; set; }
+
+        //メモ
+        public string Note { get; set; }
     }
 }

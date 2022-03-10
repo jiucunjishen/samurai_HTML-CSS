@@ -279,13 +279,15 @@ namespace ProgressManagementSystem {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTableCaseListDataTable : global::System.Data.TypedTableBase<DataTableCaseListRow> {
             
+            private global::System.Data.DataColumn column窓口;
+            
             private global::System.Data.DataColumn column実務担当者;
             
             private global::System.Data.DataColumn columnケース番号;
             
-            private global::System.Data.DataColumn columnクライアント整理番号;
-            
             private global::System.Data.DataColumn columnクライアント名;
+            
+            private global::System.Data.DataColumn columnクライアント整理番号;
             
             private global::System.Data.DataColumn column期限;
             
@@ -324,6 +326,14 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn 窓口Column {
+                get {
+                    return this.column窓口;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn 実務担当者Column {
                 get {
                     return this.column実務担当者;
@@ -340,17 +350,17 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn クライアント整理番号Column {
+            public global::System.Data.DataColumn クライアント名Column {
                 get {
-                    return this.columnクライアント整理番号;
+                    return this.columnクライアント名;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn クライアント名Column {
+            public global::System.Data.DataColumn クライアント整理番号Column {
                 get {
-                    return this.columnクライアント名;
+                    return this.columnクライアント整理番号;
                 }
             }
             
@@ -399,13 +409,14 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public DataTableCaseListRow AddDataTableCaseListRow(string 実務担当者, string ケース番号, string クライアント整理番号, string クライアント名, string 期限) {
+            public DataTableCaseListRow AddDataTableCaseListRow(string 窓口, string 実務担当者, string ケース番号, string クライアント名, string クライアント整理番号, string 期限) {
                 DataTableCaseListRow rowDataTableCaseListRow = ((DataTableCaseListRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        窓口,
                         実務担当者,
                         ケース番号,
-                        クライアント整理番号,
                         クライアント名,
+                        クライアント整理番号,
                         期限};
                 rowDataTableCaseListRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTableCaseListRow);
@@ -429,24 +440,27 @@ namespace ProgressManagementSystem {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
+                this.column窓口 = base.Columns["窓口"];
                 this.column実務担当者 = base.Columns["実務担当者"];
                 this.columnケース番号 = base.Columns["ケース番号"];
-                this.columnクライアント整理番号 = base.Columns["クライアント整理番号"];
                 this.columnクライアント名 = base.Columns["クライアント名"];
+                this.columnクライアント整理番号 = base.Columns["クライアント整理番号"];
                 this.column期限 = base.Columns["期限"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
+                this.column窓口 = new global::System.Data.DataColumn("窓口", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column窓口);
                 this.column実務担当者 = new global::System.Data.DataColumn("実務担当者", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column実務担当者);
                 this.columnケース番号 = new global::System.Data.DataColumn("ケース番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnケース番号);
-                this.columnクライアント整理番号 = new global::System.Data.DataColumn("クライアント整理番号", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnクライアント整理番号);
                 this.columnクライアント名 = new global::System.Data.DataColumn("クライアント名", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnクライアント名);
+                this.columnクライアント整理番号 = new global::System.Data.DataColumn("クライアント整理番号", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnクライアント整理番号);
                 this.column期限 = new global::System.Data.DataColumn("期限", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column期限);
             }
@@ -591,6 +605,22 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string 窓口 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableCaseList.窓口Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DataTableCaseList\' にある列 \'窓口\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableCaseList.窓口Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string 実務担当者 {
                 get {
                     try {
@@ -623,22 +653,6 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string クライアント整理番号 {
-                get {
-                    try {
-                        return ((string)(this[this.tableDataTableCaseList.クライアント整理番号Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'DataTableCaseList\' にある列 \'クライアント整理番号\' の値は DBNull です。", e);
-                    }
-                }
-                set {
-                    this[this.tableDataTableCaseList.クライアント整理番号Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string クライアント名 {
                 get {
                     try {
@@ -650,6 +664,22 @@ namespace ProgressManagementSystem {
                 }
                 set {
                     this[this.tableDataTableCaseList.クライアント名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string クライアント整理番号 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableCaseList.クライアント整理番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DataTableCaseList\' にある列 \'クライアント整理番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableCaseList.クライアント整理番号Column] = value;
                 }
             }
             
@@ -667,6 +697,18 @@ namespace ProgressManagementSystem {
                 set {
                     this[this.tableDataTableCaseList.期限Column] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Is窓口Null() {
+                return this.IsNull(this.tableDataTableCaseList.窓口Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Set窓口Null() {
+                this[this.tableDataTableCaseList.窓口Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -695,18 +737,6 @@ namespace ProgressManagementSystem {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Isクライアント整理番号Null() {
-                return this.IsNull(this.tableDataTableCaseList.クライアント整理番号Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setクライアント整理番号Null() {
-                this[this.tableDataTableCaseList.クライアント整理番号Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Isクライアント名Null() {
                 return this.IsNull(this.tableDataTableCaseList.クライアント名Column);
             }
@@ -715,6 +745,18 @@ namespace ProgressManagementSystem {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setクライアント名Null() {
                 this[this.tableDataTableCaseList.クライアント名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isクライアント整理番号Null() {
+                return this.IsNull(this.tableDataTableCaseList.クライアント整理番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setクライアント整理番号Null() {
+                this[this.tableDataTableCaseList.クライアント整理番号Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -4,5 +4,8 @@
 
     public partial class CaseList
     {
+        partial class DataTableCaseListDataTable
+        {
+        }
     }
 }

@@ -16,6 +16,14 @@ namespace ProgressManagementSystem
 {
     public partial class FormMain : Form
     {
+        //Form1のメンバ変数
+        //DBのuserテーブルを読み込んでマッピングするUserクラスのインスタンス
+        private List<User> users;
+        //DBのcaseテーブルを読み込んでマッピングするCaseクラスのインスタンス
+        private List<Case> cases;
+        //選択セルの行
+        int RowNumber;
+
         public FormMain()
         {
             InitializeComponent();
@@ -36,32 +44,24 @@ namespace ProgressManagementSystem
         }
 
 
-        /*不使用メソッド。仮csvからのデータ読み込み
-        public void LoadData()
+        //アプリ起動時、DBからデータ読み込み
+        private void FormMain_Load(object sender, EventArgs e)
         {
-            //仮のcsvからデータ読み込み
-            string path = "CaseData.csv";
-            string delimStr = ",";
-            char[] delimiter = delimStr.ToCharArray();
-            string[] strData;
-            string strLine;
-            bool fileExists = System.IO.File.Exists(path);
-            if (fileExists)
+            //DBのuserテーブルを読み込んでusersインスタンスにマッピング
+            users = SelectUsers();
+            //担当者コンボボックスに追加
+            foreach (User user in users)
             {
-                System.IO.StreamReader sr = new System.IO.StreamReader(
-                                                path,
-                                                System.Text.Encoding.Default);
-                while (sr.Peek()>=0)
-                {
-                    strLine = sr.ReadLine();
-                    strData = strLine.Split(delimiter);
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(
-                                                strData[0],
-                                                strData[1],
-                                                strData[2],
-                                                strData[3]);
-                }
-                sr.Close();
+                comboBoxEngineer.Items.Add(user.Name.ToString());
+                //                comboBox1.Items.Add($"ID : { user.Id.ToString() }, Name : { user.Name }");
+            }
+
+            //DBのcaseテーブルを読み込んでcasesインスタンスにマッピング
+            cases = SelectCases();
+            //データグリッドビュー表示、ケース番号、クライアント名、クライアント整理番号、期限
+            foreach (Case @case in cases)
+            {
+                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
             }
 
             //件数カウント＆表示
@@ -71,127 +71,46 @@ namespace ProgressManagementSystem
             NumberOfCases--;
 
             textBoxNumberOfCases.Text = "　表示件数：　" + NumberOfCases.ToString();
-        
-        }
-        */
-
-
-        //アプリ起動時、DBからデータ読み込み
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            //DBのuserテーブルを読み込んでusersインスタンスにマッピング
-            List<User> users = SelectUsers();
-            //担当者コンボボックスに追加
-            foreach (User user in users)
-            {
-                comboBoxEngineer.Items.Add(user.Name.ToString());
-                //                comboBox1.Items.Add($"ID : { user.Id.ToString() }, Name : { user.Name }");
-            }
-
-            //DBのcaseテーブルを読み込んでcasesインスタンスにマッピング
-            List<Case> cases = SelectCases();
-            //データグリッドビュー表示、ケース番号、クライアント名、クライアント整理番号、期限
-            foreach (Case @case in cases)
-            {
-                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-            }
-            //初期選択セルに対応する受託日表示
-            textBoxCaseReceived.Text = cases[0].CaseReceived.ToShortDateString();
-            //初期選択セルに対応する面談日表示
-            textBoxMeeting.Text = cases[0].Meeting.ToShortDateString();
-            //初期選択セルに対応する補充資料受領日表示
-            textBoxSupplementReceived.Text = cases[0].SupplementReceived.ToShortDateString();
-            //初期選択セルに対応する初稿期限日表示
-            textBoxDraftDeadline.Text = cases[0].DraftDeadline.ToShortDateString();
-            //初期選択セルに対応する初稿送付日表示
-            textBoxDraftSent.Text = cases[0].DraftSent.ToShortDateString();
-            //初期選択セルに対応するドラフト日数表示
-            textBoxDraftDays.Text = cases[0].DraftDays.ToString();
-            //初期選択セルに対応するメモ表示
-            textBoxNote.Text = cases[0].Note.ToString();
 
         }
 
         //データグリッドビューセル選択時
         private void dataGridViewCaseList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int LawNumber = e.RowIndex;
-            
-            Console.WriteLine(LawNumber);
+            RowNumber = e.RowIndex;
 
-            //DBのcaseテーブルを読み込んでcasesインスタンスにマッピング
-            List<Case> cases = SelectCases();
-            //受託日表示
-            textBoxCaseReceived.Text = cases[LawNumber].CaseReceived.ToShortDateString();
-            //面談日表示
-            textBoxMeeting.Text = cases[LawNumber].Meeting.ToShortDateString();
-            //補充資料受領日表示
-            textBoxSupplementReceived.Text = cases[LawNumber].SupplementReceived.ToShortDateString();
-            //初稿期限日表示
-            textBoxDraftDeadline.Text = cases[LawNumber].DraftDeadline.ToShortDateString(); 
-            //初稿送付日表示
-            textBoxDraftSent.Text = cases[LawNumber].DraftSent.ToShortDateString();
-            //ドラフト日数表示
-            textBoxDraftDays.Text = cases[LawNumber].DraftDays.ToString();
-            //メモ表示
-            textBoxNote.Text = cases[LawNumber].Note.ToString();
+            if (RowNumber >= 0)
+            {
+                //受託日表示
+                textBoxCaseReceived.Text = cases[RowNumber].CaseReceived.ToShortDateString();
+                //面談日表示
+                textBoxMeeting.Text = cases[RowNumber].Meeting.ToShortDateString();
+                //補充資料受領日表示
+                textBoxSupplementReceived.Text = cases[RowNumber].SupplementReceived.ToShortDateString();
+                //初稿期限日表示
+                textBoxDraftDeadline.Text = cases[RowNumber].DraftDeadline.ToShortDateString();
+                //初稿送付日表示
+                textBoxDraftSent.Text = cases[RowNumber].DraftSent.ToShortDateString();
+                //ドラフト日数表示
+                textBoxDraftDays.Text = cases[RowNumber].DraftDays.ToString();
+                //庁提出日表示
+                textBoxFiledDate.Text = cases[RowNumber].FiledDate.ToShortDateString();
+                //メモ表示
+                textBoxNote.Text = cases[RowNumber].Note.ToString();
+
+            }
 
         }
 
         //保存ボタン、DBのcaseテーブルに保存
         private void buttonStore_Click(object sender, EventArgs e)
         {
-            List<Case> cases = SelectCases();
 
-            Case case2 = new Case();
+            foreach (Case @case in cases)
+            {
 
-            case2.CaseNumber = "JP22-0001";
-            case2.ClientReference = "JP0001";
-            case2.ClientName = "xxx";
-            case2.Contact = "新居";
-            case2.Engineer = "久村";
-            case2.ClientContact = "xxx";
-            case2.Inventor = "xxx";
-            case2.Flag = "管理中";
-            case2.Category = "出願";
-            case2.Region = "国内";
-            case2.DueDate = DateTime.Parse("2022/03/15");
-            case2.Thread = "xxx";
-            case2.Wrapper = "xxx";
-            case2.Rooster = "xxx";
-            case2.CaseReceived = DateTime.Parse("2022/01/15");
-            case2.Meeting = DateTime.Parse("2022/01/22");
-            case2.SupplementReceived = DateTime.Parse("2022/01/23");
-            case2.DraftDeadline = DateTime.Parse("2022/02/23");
-            case2.DraftSent = DateTime.Parse("2022/02/21");
-            case2.DraftDays = 30;
-            case2.FiledDate = DateTime.Parse("2022/04/25");
-            case2.Note = "Note1";
-
-            Console.WriteLine(case2.CaseNumber.ToString());
-            Console.WriteLine(case2.ClientReference.ToString());
-            Console.WriteLine(case2.ClientName.ToString());
-            Console.WriteLine(case2.Contact.ToString());
-            Console.WriteLine(case2.Engineer.ToString());
-            Console.WriteLine(case2.ClientContact.ToString());
-            Console.WriteLine(case2.Inventor.ToString());
-            Console.WriteLine(case2.Flag.ToString());
-            Console.WriteLine(case2.Category.ToString());
-            Console.WriteLine(case2.Region.ToString());
-            Console.WriteLine(case2.DueDate.ToString());
-            Console.WriteLine(case2.Thread.ToString());
-            Console.WriteLine(case2.Wrapper.ToString());
-            Console.WriteLine(case2.Rooster.ToString());
-            Console.WriteLine(case2.CaseReceived.ToString());
-            Console.WriteLine(case2.Meeting.ToString());
-            Console.WriteLine(case2.SupplementReceived.ToString());
-            Console.WriteLine(case2.DraftDeadline.ToString());
-            Console.WriteLine(case2.DraftSent.ToString());
-            Console.WriteLine(case2.DraftDays.ToString());
-            Console.WriteLine(case2.FiledDate.ToString());
-            Console.WriteLine(case2.Note.ToString());
-
-            InsertCase(case2);
+                InsertCase(@case);
+            }
 
         }
 
@@ -320,6 +239,7 @@ namespace ProgressManagementSystem
 
             Today = monthCalendar.SelectionStart;
             textBoxCaseReceived.Text = Today.ToShortDateString();
+            cases[RowNumber].CaseReceived = Today;
         }
 
         //面談日入力
@@ -329,6 +249,7 @@ namespace ProgressManagementSystem
 
             Today = monthCalendar.SelectionStart;
             textBoxMeeting.Text = Today.ToShortDateString();
+            cases[RowNumber].Meeting = Today;
         }
 
         //補充資料受領日入力
@@ -337,7 +258,8 @@ namespace ProgressManagementSystem
             DateTime Today;
 
             Today = monthCalendar.SelectionStart;
-            textBoxSupplementReceived.Text = Today.ToShortDateString(); 
+            textBoxSupplementReceived.Text = Today.ToShortDateString();
+            cases[RowNumber].SupplementReceived = Today;
         }
 
         //ドラフト期限日入力
@@ -347,6 +269,7 @@ namespace ProgressManagementSystem
 
             Today = monthCalendar.SelectionStart;
             textBoxDraftDeadline.Text = Today.ToShortDateString();
+            cases[RowNumber].DraftDeadline = Today;
         }
 
         //ドラフト送付日入力、ドラフト日数計算
@@ -358,6 +281,7 @@ namespace ProgressManagementSystem
 
             Today = monthCalendar.SelectionStart;
             textBoxDraftSent.Text = Today.ToShortDateString();
+            cases[RowNumber].DraftSent = Today;
 
             x = DateTime.Parse(textBoxMeeting.Text);
             y = DateTime.Parse(textBoxDraftSent.Text);
@@ -365,32 +289,47 @@ namespace ProgressManagementSystem
             DraftDays = y - x;
 
             textBoxDraftDays.Text = DraftDays.ToString("dd");
+            cases[RowNumber].DraftDays = int.Parse(textBoxDraftDays.Text);
+            Console.WriteLine(cases[RowNumber].DraftDays);
+        }
 
+        //庁提出日入力
+        private void buttonFiledDate_Click(object sender, EventArgs e)
+        {
+            DateTime Today;
+
+            Today = monthCalendar.SelectionStart;
+            textBoxFiledDate.Text = Today.ToShortDateString();
+            cases[RowNumber].FiledDate = Today;
         }
 
         //スレッドリンク
         private void linkLabelCaseThread_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.yahoo.co.jp");
+            System.Diagnostics.Process.Start(cases[RowNumber].Thread);
         }
 
-        //クライアント情報リンク
+        //クライアント情報リンク、現時点では不使用
         private void linkLabelClientInformation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.yahoo.co.jp");
         }
 
         //Wrapperリンク
         private void linkLabelElectricalWrapper_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.yahoo.co.jp");
+            System.Diagnostics.Process.Start(cases[RowNumber].Wrapper);
         }
 
         //Roosterリンク
         private void linkLabelElectricalLibrary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.yahoo.co.jp");
+            System.Diagnostics.Process.Start(cases[RowNumber].Rooster);
         }
 
+        //メモ変更
+        private void textBoxNote_TextChanged(object sender, EventArgs e)
+        {
+            cases[RowNumber].Note=textBoxNote.Text;
+        }
     }
 }

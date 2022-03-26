@@ -53,7 +53,7 @@ namespace ProgressManagementSystem
             //データグリッドビュー表示、ケース番号、クライアント名、クライアント整理番号、期限
             foreach (Case @case in cases)
             {
-                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
+                CaseList.DataTableCaseListRow row = caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
 
                 //リンク情報追加
                 row.Case = @case;
@@ -85,22 +85,27 @@ namespace ProgressManagementSystem
 
             if (RowNumber >= 0)
             {
+                // 選択された行を取得
+                CaseList.DataTableCaseListRow row = ((DataRowView)dataGridViewCaseList.Rows[RowNumber].DataBoundItem).Row as CaseList.DataTableCaseListRow;
+                // リンク情報からCaseを取得
+                Case clickedCase = row.Case;
+
                 //受託日表示
-                textBoxCaseReceived.Text = cases[RowNumber].CaseReceived.ToShortDateString();
+                textBoxCaseReceived.Text = clickedCase.CaseReceived.ToShortDateString();
                 //面談日表示
-                textBoxMeeting.Text = cases[RowNumber].Meeting.ToShortDateString();
+                textBoxMeeting.Text = clickedCase.Meeting.ToShortDateString();
                 //補充資料受領日表示
-                textBoxSupplementReceived.Text = cases[RowNumber].SupplementReceived.ToShortDateString();
+                textBoxSupplementReceived.Text = clickedCase.SupplementReceived.ToShortDateString();
                 //初稿期限日表示
-                textBoxDraftDeadline.Text = cases[RowNumber].DraftDeadline.ToShortDateString();
+                textBoxDraftDeadline.Text = clickedCase.DraftDeadline.ToShortDateString();
                 //初稿送付日表示
-                textBoxDraftSent.Text = cases[RowNumber].DraftSent.ToShortDateString();
+                textBoxDraftSent.Text = clickedCase.DraftSent.ToShortDateString();
                 //ドラフト日数表示
-                textBoxDraftDays.Text = cases[RowNumber].DraftDays.ToString();
+                textBoxDraftDays.Text = clickedCase.DraftDays.ToString();
                 //庁提出日表示
-                textBoxFiledDate.Text = cases[RowNumber].FiledDate.ToShortDateString();
+                textBoxFiledDate.Text = clickedCase.FiledDate.ToShortDateString();
                 //メモ表示
-                textBoxNote.Text = cases[RowNumber].Note.ToString();
+                textBoxNote.Text = clickedCase.Note.ToString();
 
             }
             else { }

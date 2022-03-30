@@ -68,12 +68,12 @@ namespace ProgressManagementSystem
             textBoxNumberOfCases.Text = "　表示件数：　" + NumberOfCases.ToString();
 
 
-            //期限1か月前のケースを赤色表示
-            List<Case> urgentCases = cases.Where((@case) => DateTime.Now > @case.DueDate.AddMonths(-1)).ToList();
+            //期限管理中かつ期限7日前のケースを赤字表示
+            List<Case> urgentCases = cases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.AddDays(-7)).ToList();
 
             foreach (Case @case in urgentCases)
             {           
-                dataGridViewCaseList.Rows[cases.IndexOf(@case)].DefaultCellStyle.BackColor = Color.OrangeRed;
+                dataGridViewCaseList.Rows[cases.IndexOf(@case)].DefaultCellStyle.ForeColor = Color.OrangeRed;
             }
 
         }
@@ -89,6 +89,12 @@ namespace ProgressManagementSystem
                 CaseList.DataTableCaseListRow row = ((DataRowView)dataGridViewCaseList.Rows[RowNumber].DataBoundItem).Row as CaseList.DataTableCaseListRow;
                 // リンク情報からCaseを取得
                 Case clickedCase = row.Case;
+
+                //選択されたケース番号のケースにする
+                string cn = dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString();
+                Console.WriteLine(cn);
+//                clickedCase = cases.Where(@case => @case.CaseNumber == cn);
+
 
                 //受託日表示
                 textBoxCaseReceived.Text = clickedCase.CaseReceived.ToShortDateString();
@@ -458,72 +464,51 @@ namespace ProgressManagementSystem
             // リストクリア
             caseList.DataTableCaseList.Clear();
 
-/*          //期限管理中チェックボックスオン
-            if (checkBoxDueOn.Checked == true)
+            // フィルターを通って実際に表示するCaseを格納（ここからチェックの入っていないものを除外していく）
+            List<Case> tmpcases = new List<Case>(cases);
+
+            //期限管理中チェックボックスオフ
+            if(checkBoxDueOn.Checked ==false)
             {
-                foreach (Case @case in cases.Where(@case => @case.Flag == "管理中"))
-                {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-                }
-
+                tmpcases = tmpcases.Where(@case => @case.Flag != "管理中").ToList();            
             }
-            else { }
-*/
 
-
-/*          //期限管理終了チェックボックスオン
-            if (checkBoxDueOff.Checked == true)
-            { 
-                foreach (Case @case in cases.Where (@case => @case.Flag == "管理終了"))
-                {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-                }
+            //期限管理終了チェックボックスオフ
+            if (checkBoxDueOff.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Flag != "管理終了").ToList();
             }
-            else {}
- */
 
- /*         //国内出願チェックボックスオン
-            if (checkBoxDomesticApplication.Checked == true)
-            { 
-                foreach (Case @case in cases.Where (@case => @case.Category == "出願" & @case.Region == "国内"))
-                {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-                }
+            //国内出願チェックボックスオフ
+            if (checkBoxDomesticApplication.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "国内出願").ToList();
             }
-            else {}
- */
 
-/*          //国内中間チェックボックスオン
-            if (checkBoxDomesticOfficeAction.Checked == true)
-            { 
-                foreach (Case @case in cases.Where (@case => @case.Category == "中間" & @case.Region == "国内"))
-                {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-                }
-            }   
-            else {}
- */
+            //国内中間チェックボックスオフ
+            if (checkBoxDomesticOfficeAction.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "国内中間").ToList();
+            }
 
- /*           //外国出願チェックボックスオン
-            if (checkBoxForeignApplication.Checked == true)
-            { 
-                foreach (Case @case in cases.Where (@case => @case.Category == "出願" & @case.Region == "外国"))
-                {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-                }
-            }   
-            else {}
-*/
+            //外国出願チェックボックスオフ
+            if (checkBoxForeignApplication.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "外国出願").ToList();
+            }
 
-            //外国中間チェックボックスオン
-            if (checkBoxForeignOfficeAction.Checked == true)
-            { 
-                foreach (Case @case in cases.Where (@case => @case.Category == "中間" & @case.Region == "外国"))
-                {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
-                }
-            }   
-            else {}
+            //外国中間チェックボックスオフ
+            if (checkBoxForeignOfficeAction.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "外国中間").ToList();
+            }
+
+            // DataTableCaseListRow化
+            foreach (Case @case in tmpcases)
+            {
+                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
+            }
+
         }
 
     }

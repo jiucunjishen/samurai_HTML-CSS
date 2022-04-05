@@ -42,8 +42,11 @@ namespace ProgressManagementSystem
         //期限
         public DateTime DueDate { get; set; }
 
-        //スレッドリンク
-        public string Thread { get; set; }
+        //ケーススレッドリンク
+        public string CaseThread { get; set; }
+
+        //クライアントスレッドリンク
+        public string ClientThread { get; set; }
 
         //Wrapperリンク
         public string Wrapper { get; set; }

@@ -39,14 +39,14 @@ namespace ProgressManagementSystem
         private void FormMain_Load(object sender, EventArgs e)
         {
             //DBのuserテーブルを読み込んでusersインスタンスにマッピング
-            users = SelectUsers();
+//            users = SelectUsers();
             //担当者コンボボックスに追加
-            comboBoxEngineer.Items.Add("全員");
-            foreach (User user in users)
-            {
-                comboBoxEngineer.Items.Add(user.Name.ToString());
+//            comboBoxEngineer.Items.Add("全員");
+//            foreach (User user in users)
+//            {
+//                comboBoxEngineer.Items.Add(user.Name.ToString());
                 //                comboBox1.Items.Add($"ID : { user.Id.ToString() }, Name : { user.Name }");
-            }
+//            }
 
             //DBのcaseテーブルを読み込んでcasesインスタンスにマッピング
             cases = SelectCases();
@@ -68,8 +68,8 @@ namespace ProgressManagementSystem
             textBoxNumberOfCases.Text = "　表示件数：　" + NumberOfCases.ToString();
 
 
-            //期限管理中かつ期限7日前のケースを赤字表示
-            List<Case> urgentCases = cases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.AddDays(-7)).ToList();
+            //期限管理中かつ期限14日前のケースを赤字表示
+            List<Case> urgentCases = cases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.AddDays(-14)).ToList();
 
             foreach (Case @case in urgentCases)
             {           
@@ -82,19 +82,18 @@ namespace ProgressManagementSystem
         private void dataGridViewCaseList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             RowNumber = e.RowIndex;
+            int NumberOfCases = dataGridViewCaseList.Rows.Count;
+            NumberOfCases--;
 
-            if (RowNumber >= 0)
+            if (RowNumber >= 0 && RowNumber < NumberOfCases)
             {
                 // 選択された行を取得
-                CaseList.DataTableCaseListRow row = ((DataRowView)dataGridViewCaseList.Rows[RowNumber].DataBoundItem).Row as CaseList.DataTableCaseListRow;
+                //CaseList.DataTableCaseListRow row = ((DataRowView)dataGridViewCaseList.Rows[RowNumber].DataBoundItem).Row as CaseList.DataTableCaseListRow;
                 // リンク情報からCaseを取得
-                Case clickedCase = row.Case;
+                //Case clickedCase = row.Case;
 
                 //選択されたケース番号のケースにする
-                string cn = dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString();
-                Console.WriteLine(cn);
-//                clickedCase = cases.Where(@case => @case.CaseNumber == cn);
-
+                Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
                 //受託日表示
                 textBoxCaseReceived.Text = clickedCase.CaseReceived.ToShortDateString();
@@ -241,11 +240,11 @@ namespace ProgressManagementSystem
             {
                 con.Execute("insert into `case` values (@CaseNumber, @ClientReference, @ClientName," +
                     " @Contact, @Engineer, @ClientContact, @Inventor, @Flag, @Category, @Region, @DueDate," +
-                    " @Thread, @Wrapper, @Rooster, @CaseReceived, @Meeting, @SupplementReceived, @DraftDeadline," +
+                    " @CaseThread, @ClientThread, @Wrapper, @Rooster, @CaseReceived, @Meeting, @SupplementReceived, @DraftDeadline," +
                     " @DraftSent, @DraftDays, @FiledDate, @Note)" +
                     " on duplicate key update clientreference=@ClientReference, clientname=@ClientName, contact=@Contact," +
                     " engineer=@Engineer, clientcontact=@ClientContact, inventor=@Inventor, flag=@Flag, category=@Category," +
-                    " region=@Region, duedate=@DueDate, thread=@Thread, wrapper=@Wrapper, rooster=@Rooster, casereceived=@CaseReceived," +
+                    " region=@Region, duedate=@DueDate, casethread=@CaseThread, clientthread=@ClientThread, wrapper=@Wrapper, rooster=@Rooster, casereceived=@CaseReceived," +
                     " meeting=@Meeting, supplementreceived=@SupplementReceived, draftdeadline=@DraftDeadline, draftdays=@DraftDays," +
                     " draftSent=@DraftSent, fileddate=@FiledDate, note=@Note", @case);
             }
@@ -398,7 +397,7 @@ namespace ProgressManagementSystem
         //スレッドリンク
         private void linkLabelCaseThread_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(cases[RowNumber].Thread);
+            System.Diagnostics.Process.Start(cases[RowNumber].CaseThread);
         }
 
         //クライアント情報リンク、現時点では不使用
@@ -503,11 +502,26 @@ namespace ProgressManagementSystem
                 tmpcases = tmpcases.Where(@case => @case.Category != "外国中間").ToList();
             }
 
+            //その他チェックボックスオフ
+            if (checkBoxOthers.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "その他").ToList();
+            }
+
             // DataTableCaseListRow化
             foreach (Case @case in tmpcases)
             {
                 caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
             }
+
+            //期限管理中かつ期限14日前のケースを赤字表示
+            List<Case> urgentCases = tmpcases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.AddDays(-14)).ToList();
+
+            foreach (Case @case in urgentCases)
+            {
+                dataGridViewCaseList.Rows[tmpcases.IndexOf(@case)].DefaultCellStyle.ForeColor = Color.OrangeRed;
+            }
+
 
         }
 

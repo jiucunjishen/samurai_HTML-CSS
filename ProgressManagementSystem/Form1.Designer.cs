@@ -75,6 +75,7 @@
             this.buttonFiledDate = new System.Windows.Forms.Button();
             this.textBoxFiledDate = new System.Windows.Forms.TextBox();
             this.checkBoxOthers = new System.Windows.Forms.CheckBox();
+            this.buttonTmp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCaseList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.caseList)).BeginInit();
@@ -218,8 +219,6 @@
             // checkBoxDueOff
             // 
             this.checkBoxDueOff.AutoSize = true;
-            this.checkBoxDueOff.Checked = true;
-            this.checkBoxDueOff.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxDueOff.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.checkBoxDueOff.Location = new System.Drawing.Point(786, 62);
             this.checkBoxDueOff.Name = "checkBoxDueOff";
@@ -548,11 +547,23 @@
             this.checkBoxOthers.Text = "その他";
             this.checkBoxOthers.UseVisualStyleBackColor = true;
             // 
+            // buttonTmp
+            // 
+            this.buttonTmp.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonTmp.Location = new System.Drawing.Point(787, 303);
+            this.buttonTmp.Name = "buttonTmp";
+            this.buttonTmp.Size = new System.Drawing.Size(182, 65);
+            this.buttonTmp.TabIndex = 52;
+            this.buttonTmp.Text = "ワード操作";
+            this.buttonTmp.UseVisualStyleBackColor = true;
+            this.buttonTmp.Click += new System.EventHandler(this.buttonTmp_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 739);
+            this.Controls.Add(this.buttonTmp);
             this.Controls.Add(this.checkBoxOthers);
             this.Controls.Add(this.textBoxFiledDate);
             this.Controls.Add(this.buttonFiledDate);
@@ -644,6 +655,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 期限DataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource dataTableCaseListBindingSource;
         private System.Windows.Forms.CheckBox checkBoxOthers;
+        private System.Windows.Forms.Button buttonTmp;
     }
 }
 

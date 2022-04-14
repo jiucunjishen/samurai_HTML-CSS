@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//ワード操作用
+using Microsoft.Office.Interop.Word;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace ProgressManagementSystem
 {
@@ -38,25 +41,69 @@ namespace ProgressManagementSystem
         //アプリ起動時、DBからデータ読み込み
         private void FormMain_Load(object sender, EventArgs e)
         {
-            //DBのuserテーブルを読み込んでusersインスタンスにマッピング
-//            users = SelectUsers();
-            //担当者コンボボックスに追加
-//            comboBoxEngineer.Items.Add("全員");
-//            foreach (User user in users)
-//            {
-//                comboBoxEngineer.Items.Add(user.Name.ToString());
-                //                comboBox1.Items.Add($"ID : { user.Id.ToString() }, Name : { user.Name }");
-//            }
 
             //DBのcaseテーブルを読み込んでcasesインスタンスにマッピング
             cases = SelectCases();
-            //データグリッドビュー表示、ケース番号、クライアント名、クライアント整理番号、期限
+            //duedate nullをMax設定
             foreach (Case @case in cases)
             {
-                CaseList.DataTableCaseListRow row = caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
+                if (@case.DueDate == null)
+                {
+                    @case.DueDate = DateTime.MaxValue;
+                }
+                else { }
 
-                //リンク情報追加
-                row.Case = @case;
+            }
+
+            // フィルターを通って実際に表示するCaseを格納（ここからチェックの入っていないものを除外していく）
+            List<Case> tmpcases = new List<Case>(cases);
+
+            //期限管理中チェックボックスオフ
+            if (checkBoxDueOn.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Flag != "管理中").ToList();
+            }
+
+            //期限管理終了チェックボックスオフ
+            if (checkBoxDueOff.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Flag != "管理終了").ToList();
+            }
+
+            //国内出願チェックボックスオフ
+            if (checkBoxDomesticApplication.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "国内出願").ToList();
+            }
+
+            //国内中間チェックボックスオフ
+            if (checkBoxDomesticOfficeAction.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "国内中間").ToList();
+            }
+
+            //外国出願チェックボックスオフ
+            if (checkBoxForeignApplication.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "外国出願").ToList();
+            }
+
+            //外国中間チェックボックスオフ
+            if (checkBoxForeignOfficeAction.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "外国中間").ToList();
+            }
+
+            //その他チェックボックスオフ
+            if (checkBoxOthers.Checked == false)
+            {
+                tmpcases = tmpcases.Where(@case => @case.Category != "その他").ToList();
+            }
+
+            // DataTableCaseListRow化
+            foreach (Case @case in tmpcases)
+            {
+                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.Value.ToShortDateString());
             }
 
             //件数カウント＆表示
@@ -69,13 +116,12 @@ namespace ProgressManagementSystem
 
 
             //期限管理中かつ期限14日前のケースを赤字表示
-            List<Case> urgentCases = cases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.AddDays(-14)).ToList();
+            List<Case> urgentCases = tmpcases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.Value.AddDays(-14)).ToList();
 
             foreach (Case @case in urgentCases)
-            {           
-                dataGridViewCaseList.Rows[cases.IndexOf(@case)].DefaultCellStyle.ForeColor = Color.OrangeRed;
+            {
+                dataGridViewCaseList.Rows[tmpcases.IndexOf(@case)].DefaultCellStyle.ForeColor = Color.OrangeRed;
             }
-
         }
 
         //データグリッドビューセル選択時
@@ -87,28 +133,24 @@ namespace ProgressManagementSystem
 
             if (RowNumber >= 0 && RowNumber < NumberOfCases)
             {
-                // 選択された行を取得
-                //CaseList.DataTableCaseListRow row = ((DataRowView)dataGridViewCaseList.Rows[RowNumber].DataBoundItem).Row as CaseList.DataTableCaseListRow;
-                // リンク情報からCaseを取得
-                //Case clickedCase = row.Case;
 
                 //選択されたケース番号のケースにする
                 Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
                 //受託日表示
-                textBoxCaseReceived.Text = clickedCase.CaseReceived.ToShortDateString();
+                textBoxCaseReceived.Text = clickedCase.CaseReceived == null ? "" : clickedCase.CaseReceived.Value.ToShortDateString();
                 //面談日表示
-                textBoxMeeting.Text = clickedCase.Meeting.ToShortDateString();
+                textBoxMeeting.Text = clickedCase.Meeting == null ? "" : clickedCase.Meeting.Value.ToShortDateString();
                 //補充資料受領日表示
-                textBoxSupplementReceived.Text = clickedCase.SupplementReceived.ToShortDateString();
+                textBoxSupplementReceived.Text = clickedCase.SupplementReceived == null ? "" : clickedCase.SupplementReceived.Value.ToShortDateString();
                 //初稿期限日表示
-                textBoxDraftDeadline.Text = clickedCase.DraftDeadline.ToShortDateString();
+                textBoxDraftDeadline.Text = clickedCase.DraftDeadline == null ? "" : clickedCase.DraftDeadline.Value.ToShortDateString();
                 //初稿送付日表示
-                textBoxDraftSent.Text = clickedCase.DraftSent.ToShortDateString();
+                textBoxDraftSent.Text = clickedCase.DraftSent == null ? "" : clickedCase.DraftSent.Value.ToShortDateString();
                 //ドラフト日数表示
-                textBoxDraftDays.Text = clickedCase.DraftDays.ToString();
+                textBoxDraftDays.Text = clickedCase.DraftDays == null ? "" : clickedCase.DraftDays.Value.ToString();
                 //庁提出日表示
-                textBoxFiledDate.Text = clickedCase.FiledDate.ToShortDateString();
+                textBoxFiledDate.Text = clickedCase.FiledDate == null ? "" : clickedCase.FiledDate.Value.ToShortDateString();
                 //メモ表示
                 textBoxNote.Text = clickedCase.Note.ToString();
 
@@ -261,6 +303,9 @@ namespace ProgressManagementSystem
         {
             DateTime Today = monthCalendar.SelectionStart;
 
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+
             //確認メッセージ表示
             DialogResult result = MessageBox.Show("受託日を"+ Today.ToShortDateString()+ "に設定／変更しますか？",
                 "質問",
@@ -271,7 +316,7 @@ namespace ProgressManagementSystem
             if (result == DialogResult.Yes)
             {
                 textBoxCaseReceived.Text = Today.ToShortDateString();
-                cases[RowNumber].CaseReceived = Today;
+                clickedCase.CaseReceived = Today;
             }
             else if (result == DialogResult.No) { }
             else if (result == DialogResult.Cancel) { }
@@ -281,6 +326,9 @@ namespace ProgressManagementSystem
         private void buttonMeeting_Click(object sender, EventArgs e)
         {
             DateTime Today = monthCalendar.SelectionStart;
+
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
             //確認メッセージ表示
             DialogResult result = MessageBox.Show("面談日を" + Today.ToShortDateString() + "に設定／変更しますか？",
@@ -292,7 +340,7 @@ namespace ProgressManagementSystem
             if (result == DialogResult.Yes)
             {
                 textBoxMeeting.Text = Today.ToShortDateString();
-                cases[RowNumber].Meeting = Today;
+                clickedCase.Meeting = Today;
             }
             else if (result == DialogResult.No) { }
             else if (result == DialogResult.Cancel) { }
@@ -302,6 +350,9 @@ namespace ProgressManagementSystem
         private void buttonSupplementReceived_Click(object sender, EventArgs e)
         {
             DateTime Today = monthCalendar.SelectionStart;
+
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
             //確認メッセージ表示
             DialogResult result = MessageBox.Show("補充資料受領日を" + Today.ToShortDateString() + "に設定／変更しますか？",
@@ -313,7 +364,7 @@ namespace ProgressManagementSystem
             if (result == DialogResult.Yes)
             {
                 textBoxSupplementReceived.Text = Today.ToShortDateString();
-                cases[RowNumber].SupplementReceived = Today;
+                clickedCase.SupplementReceived = Today;
             }
             else if (result == DialogResult.No) { }
             else if (result == DialogResult.Cancel) { }
@@ -323,6 +374,9 @@ namespace ProgressManagementSystem
         private void buttonDraftDeadline_Click(object sender, EventArgs e)
         {
             DateTime Today = monthCalendar.SelectionStart;
+
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
             //確認メッセージ表示
             DialogResult result = MessageBox.Show("初稿期限日を" + Today.ToShortDateString() + "に設定／変更しますか？",
@@ -334,7 +388,7 @@ namespace ProgressManagementSystem
             if (result == DialogResult.Yes)
             {
                 textBoxDraftDeadline.Text = Today.ToShortDateString();
-                cases[RowNumber].DraftDeadline = Today;
+                clickedCase.DraftDeadline = Today;
               
             }
             else if (result == DialogResult.No) { }
@@ -344,10 +398,10 @@ namespace ProgressManagementSystem
         //初稿送付日入力、ドラフト日数計算
         private void buttonDraftSent_Click(object sender, EventArgs e)
         {
-            DateTime Today = monthCalendar.SelectionStart;
+            DateTime SelectedDay = monthCalendar.SelectionStart;
 
             //確認メッセージ表示
-            DialogResult result = MessageBox.Show("初稿送付日を" + Today.ToShortDateString() + "に設定／変更しますか？",
+            DialogResult result = MessageBox.Show("初稿送付日を" + SelectedDay.ToShortDateString() + "に設定／変更しますか？",
                 "質問",
                 MessageBoxButtons.YesNoCancel,
                 MessageBoxIcon.Exclamation,
@@ -355,19 +409,30 @@ namespace ProgressManagementSystem
 
             if (result == DialogResult.Yes)
             {
-                DateTime x, y;
-                TimeSpan DraftDays;
+                DateTime x;
+                TimeSpan z;
 
-                textBoxDraftSent.Text = Today.ToShortDateString();
-                cases[RowNumber].DraftSent = Today;
+                textBoxDraftSent.Text = SelectedDay.ToShortDateString();
+                //選択されたケース番号のケースにする
+                Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+                clickedCase.DraftSent = SelectedDay;
 
-                x = DateTime.Parse(textBoxMeeting.Text);
-                y = DateTime.Parse(textBoxDraftSent.Text);
+                x = clickedCase.CaseReceived.Value;
+                if (clickedCase.Meeting != null)
+                {
+                    x = clickedCase.Meeting.Value;
+                }
+                else { }
 
-                DraftDays = y - x;
+                if (clickedCase.SupplementReceived != null)
+                {
+                    x = clickedCase.SupplementReceived.Value;
+                }
+                else { }
+                z = clickedCase.DraftSent.Value - x;
 
-                textBoxDraftDays.Text = DraftDays.ToString("dd");
-                cases[RowNumber].DraftDays = int.Parse(textBoxDraftDays.Text);
+                textBoxDraftDays.Text =z.ToString("dd");
+                clickedCase.DraftDays = int.Parse(textBoxDraftDays.Text);
             }
             else if (result == DialogResult.No) { }
             else if (result == DialogResult.Cancel) { }
@@ -377,6 +442,9 @@ namespace ProgressManagementSystem
         private void buttonFiledDate_Click(object sender, EventArgs e)
         {
             DateTime Today = monthCalendar.SelectionStart;
+
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
             //確認メッセージ表示
             DialogResult result = MessageBox.Show("庁提出日を" + Today.ToShortDateString() + "に設定／変更しますか？",
@@ -388,7 +456,7 @@ namespace ProgressManagementSystem
             if (result == DialogResult.Yes)
             {
                 textBoxFiledDate.Text = Today.ToShortDateString();
-                cases[RowNumber].FiledDate = Today;
+                clickedCase.FiledDate = Today;
             }
             else if (result == DialogResult.No) { }
             else if (result == DialogResult.Cancel) { }
@@ -397,7 +465,9 @@ namespace ProgressManagementSystem
         //スレッドリンク
         private void linkLabelCaseThread_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(cases[RowNumber].CaseThread);
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+            System.Diagnostics.Process.Start(clickedCase.CaseThread);
         }
 
         //クライアント情報リンク、現時点では不使用
@@ -408,19 +478,25 @@ namespace ProgressManagementSystem
         //Wrapperリンク
         private void linkLabelElectricalWrapper_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(cases[RowNumber].Wrapper);
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+            System.Diagnostics.Process.Start(clickedCase.Wrapper);
         }
 
         //Roosterリンク
         private void linkLabelElectricalLibrary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(cases[RowNumber].Rooster);
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+            System.Diagnostics.Process.Start(clickedCase.Rooster);
         }
 
         //メモ変更
         private void textBoxNote_TextChanged(object sender, EventArgs e)
         {
-            cases[RowNumber].Note=textBoxNote.Text;
+            //選択されたケース番号のケースにする
+            Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+            clickedCase.Note=textBoxNote.Text;
         }
 
         private User selectedUser;
@@ -436,7 +512,7 @@ namespace ProgressManagementSystem
 
                 foreach (Case @case in cases)
                 {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
+                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.Value.ToShortDateString());
                 }
             }
             // 個人
@@ -452,7 +528,7 @@ namespace ProgressManagementSystem
                 // casesの中からEngineerが選択されたユーザと同じものを抽出してデータグリッドビュー表示
                 foreach (Case @case in cases.Where(@case => @case.Engineer == selectedUser.Name))
                 {
-                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
+                    caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.Value.ToShortDateString());
                 }
             }
         }
@@ -511,11 +587,20 @@ namespace ProgressManagementSystem
             // DataTableCaseListRow化
             foreach (Case @case in tmpcases)
             {
-                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.ToShortDateString());
+                caseList.DataTableCaseList.AddDataTableCaseListRow(@case.Contact, @case.Engineer, @case.CaseNumber, @case.ClientName, @case.ClientReference, @case.DueDate.Value.ToShortDateString());
             }
 
+            //件数カウント＆表示
+            int NumberOfCases;
+
+            NumberOfCases = dataGridViewCaseList.Rows.Count;
+            NumberOfCases--;
+
+            textBoxNumberOfCases.Text = "　表示件数：　" + NumberOfCases.ToString();
+
+
             //期限管理中かつ期限14日前のケースを赤字表示
-            List<Case> urgentCases = tmpcases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.AddDays(-14)).ToList();
+            List<Case> urgentCases = tmpcases.Where(@case => @case.Flag == "管理中" && DateTime.Now > @case.DueDate.Value.AddDays(-14)).ToList();
 
             foreach (Case @case in urgentCases)
             {
@@ -525,5 +610,52 @@ namespace ProgressManagementSystem
 
         }
 
+        //ワード操作ボタン
+        private void buttonTmp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Word アプリケーションオブジェクトを作成
+                Word.Application word = new Word.Application();
+                // Word の GUI を起動しないようにする
+                word.Visible = false;
+
+                // 新規文書を作成
+                Document document = word.Documents.Add();
+
+                // ヘッダーを編集
+                editHeaderSample(ref document, 10, WdColorIndex.wdPink, "Header Area");
+
+                // フッターを編集
+                editFooterSample(ref document, 10, WdColorIndex.wdBlue, "Footer Area");
+
+                // 見出しを追加
+                addHeadingSample(ref document, "見出し");
+
+                // パラグラフを追加
+                document.Content.Paragraphs.Add();
+
+                // テキストを追加
+                addTextSample(ref document, WdColorIndex.wdGreen, "Hello, ");
+                addTextSample(ref document, WdColorIndex.wdRed, "World");
+
+                // 名前を付けて保存
+                object filename = System.IO.Directory.GetCurrentDirectory() + @"\out.docx";
+                document.SaveAs2(ref filename);
+
+                // 文書を閉じる
+                document.Close();
+                document = null;
+                word.Quit();
+                word = null;
+
+                Console.WriteLine("Document created successfully !");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
+        }
     }
 }

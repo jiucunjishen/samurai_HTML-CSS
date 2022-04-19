@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxEngineer = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBoxNumberOfCases = new System.Windows.Forms.TextBox();
@@ -75,7 +75,8 @@
             this.buttonFiledDate = new System.Windows.Forms.Button();
             this.textBoxFiledDate = new System.Windows.Forms.TextBox();
             this.checkBoxOthers = new System.Windows.Forms.CheckBox();
-            this.buttonTmp = new System.Windows.Forms.Button();
+            this.buttonComment = new System.Windows.Forms.Button();
+            this.buttonRestart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCaseList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.caseList)).BeginInit();
@@ -120,18 +121,18 @@
             // 
             // dataGridViewCaseList
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.dataGridViewCaseList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dataGridViewCaseList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewCaseList.AutoGenerateColumns = false;
             this.dataGridViewCaseList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewCaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCaseList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.窓口DataGridViewTextBoxColumn,
@@ -141,14 +142,14 @@
             this.クライアント整理番号DataGridViewTextBoxColumn,
             this.期限DataGridViewTextBoxColumn});
             this.dataGridViewCaseList.DataSource = this.dataTableCaseListBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewCaseList.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCaseList.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewCaseList.Location = new System.Drawing.Point(36, 130);
             this.dataGridViewCaseList.Name = "dataGridViewCaseList";
             this.dataGridViewCaseList.RowHeadersWidth = 51;
@@ -281,19 +282,19 @@
             // 
             // buttonUpDate
             // 
-            this.buttonUpDate.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonUpDate.Location = new System.Drawing.Point(1174, 22);
+            this.buttonUpDate.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonUpDate.Location = new System.Drawing.Point(623, 26);
             this.buttonUpDate.Name = "buttonUpDate";
-            this.buttonUpDate.Size = new System.Drawing.Size(75, 72);
+            this.buttonUpDate.Size = new System.Drawing.Size(141, 54);
             this.buttonUpDate.TabIndex = 14;
-            this.buttonUpDate.Text = "更新";
+            this.buttonUpDate.Text = "チェックボックス反映";
             this.buttonUpDate.UseVisualStyleBackColor = true;
             this.buttonUpDate.Click += new System.EventHandler(this.buttonUpDate_Click);
             // 
             // buttonEnd
             // 
-            this.buttonEnd.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonEnd.Location = new System.Drawing.Point(1273, 22);
+            this.buttonEnd.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonEnd.Location = new System.Drawing.Point(1275, 22);
             this.buttonEnd.Name = "buttonEnd";
             this.buttonEnd.Size = new System.Drawing.Size(75, 72);
             this.buttonEnd.TabIndex = 15;
@@ -494,12 +495,12 @@
             // 
             // buttonStore
             // 
-            this.buttonStore.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonStore.Location = new System.Drawing.Point(524, 25);
+            this.buttonStore.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonStore.Location = new System.Drawing.Point(457, 26);
             this.buttonStore.Name = "buttonStore";
-            this.buttonStore.Size = new System.Drawing.Size(164, 72);
+            this.buttonStore.Size = new System.Drawing.Size(147, 54);
             this.buttonStore.TabIndex = 47;
-            this.buttonStore.Text = "保存";
+            this.buttonStore.Text = "DB保存";
             this.buttonStore.UseVisualStyleBackColor = true;
             this.buttonStore.Click += new System.EventHandler(this.buttonStore_Click);
             // 
@@ -547,23 +548,35 @@
             this.checkBoxOthers.Text = "その他";
             this.checkBoxOthers.UseVisualStyleBackColor = true;
             // 
-            // buttonTmp
+            // buttonComment
             // 
-            this.buttonTmp.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonTmp.Location = new System.Drawing.Point(787, 303);
-            this.buttonTmp.Name = "buttonTmp";
-            this.buttonTmp.Size = new System.Drawing.Size(182, 65);
-            this.buttonTmp.TabIndex = 52;
-            this.buttonTmp.Text = "ワード操作";
-            this.buttonTmp.UseVisualStyleBackColor = true;
-            this.buttonTmp.Click += new System.EventHandler(this.buttonTmp_Click);
+            this.buttonComment.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonComment.Location = new System.Drawing.Point(787, 303);
+            this.buttonComment.Name = "buttonComment";
+            this.buttonComment.Size = new System.Drawing.Size(182, 65);
+            this.buttonComment.TabIndex = 52;
+            this.buttonComment.Text = "コメント作成";
+            this.buttonComment.UseVisualStyleBackColor = true;
+            this.buttonComment.Click += new System.EventHandler(this.buttonComment_Click);
+            // 
+            // buttonRestart
+            // 
+            this.buttonRestart.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonRestart.Location = new System.Drawing.Point(1174, 22);
+            this.buttonRestart.Name = "buttonRestart";
+            this.buttonRestart.Size = new System.Drawing.Size(75, 72);
+            this.buttonRestart.TabIndex = 53;
+            this.buttonRestart.Text = "再起動";
+            this.buttonRestart.UseVisualStyleBackColor = true;
+            this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 739);
-            this.Controls.Add(this.buttonTmp);
+            this.Controls.Add(this.buttonRestart);
+            this.Controls.Add(this.buttonComment);
             this.Controls.Add(this.checkBoxOthers);
             this.Controls.Add(this.textBoxFiledDate);
             this.Controls.Add(this.buttonFiledDate);
@@ -655,7 +668,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 期限DataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource dataTableCaseListBindingSource;
         private System.Windows.Forms.CheckBox checkBoxOthers;
-        private System.Windows.Forms.Button buttonTmp;
+        private System.Windows.Forms.Button buttonComment;
+        private System.Windows.Forms.Button buttonRestart;
     }
 }
 

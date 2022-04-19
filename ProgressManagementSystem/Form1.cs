@@ -183,6 +183,7 @@ namespace ProgressManagementSystem
         //DB接続
         private MySqlConnection GetConnection()
         {
+//            MySqlConnection con = new MySqlConnection("Database=progressmanagementsystem;Data Source=192.168.1.5;User Id=test;");
             MySqlConnection con = new MySqlConnection("Database=progressmanagementsystem;Data Source=127.0.0.1;User Id=root;");
             try
             {
@@ -610,37 +611,33 @@ namespace ProgressManagementSystem
 
         }
 
-        //ワード操作ボタン
-        private void buttonTmp_Click(object sender, EventArgs e)
+        //再起動ボタン
+        private void buttonRestart_Click(object sender, EventArgs e)
         {
+            System.Windows.Forms.Application.Restart();
+        }
+
+        //コメント作成ボタン
+        private void buttonComment_Click(object sender, EventArgs e)
+        {
+
             try
             {
+
                 // Word アプリケーションオブジェクトを作成
                 Word.Application word = new Word.Application();
                 // Word の GUI を起動しないようにする
                 word.Visible = false;
 
-                // 新規文書を作成
-                Document document = word.Documents.Add();
-
-                // ヘッダーを編集
-                editHeaderSample(ref document, 10, WdColorIndex.wdPink, "Header Area");
-
-                // フッターを編集
-                editFooterSample(ref document, 10, WdColorIndex.wdBlue, "Footer Area");
-
-                // 見出しを追加
-                addHeadingSample(ref document, "見出し");
-
-                // パラグラフを追加
-                document.Content.Paragraphs.Add();
+                // テンプレ（ひな形）を開く
+                Document document = word.Documents.Open("C:Users//yoshi//OneDrive//デスクトップ//コメントひな形.docx");
 
                 // テキストを追加
                 addTextSample(ref document, WdColorIndex.wdGreen, "Hello, ");
                 addTextSample(ref document, WdColorIndex.wdRed, "World");
 
-                // 名前を付けて保存
-                object filename = System.IO.Directory.GetCurrentDirectory() + @"\out.docx";
+                // ファイル名"out.docx"で保存
+                object filename = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/" + "out.docx";
                 document.SaveAs2(ref filename);
 
                 // 文書を閉じる
@@ -655,7 +652,23 @@ namespace ProgressManagementSystem
             {
                 Console.WriteLine(ex.Message);
             }
-           
+        }
+
+        /// 文書の末尾位置を取得する.
+        private static int getLastPosition(ref Document document)
+        {
+            return document.Content.End - 1;
+        }
+
+        /// 文書の末尾にテキストを追加する.
+        private static void addTextSample(ref Document document, WdColorIndex color, string text)
+        {
+            int before = getLastPosition(ref document);
+            Range rng = document.Range(document.Content.End - 1, document.Content.End - 1);
+            rng.Text += text;
+            int after = getLastPosition(ref document);
+
+            document.Range(before, after).Font.ColorIndex = color;
         }
     }
 }

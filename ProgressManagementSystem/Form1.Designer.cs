@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxEngineer = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBoxNumberOfCases = new System.Windows.Forms.TextBox();
@@ -42,6 +42,12 @@
             this.クライアント名DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.クライアント整理番号DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.期限DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.コメント作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.コメント一般作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.コメントソニー作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.データ準備ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.最終データ準備ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataTableCaseListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.caseList = new ProgressManagementSystem.CaseList();
             this.checkBoxDueOn = new System.Windows.Forms.CheckBox();
@@ -75,9 +81,10 @@
             this.buttonFiledDate = new System.Windows.Forms.Button();
             this.textBoxFiledDate = new System.Windows.Forms.TextBox();
             this.checkBoxOthers = new System.Windows.Forms.CheckBox();
-            this.buttonComment = new System.Windows.Forms.Button();
             this.buttonRestart = new System.Windows.Forms.Button();
+            this.buttonWebAccess = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCaseList)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.caseList)).BeginInit();
             this.SuspendLayout();
@@ -121,18 +128,18 @@
             // 
             // dataGridViewCaseList
             // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.dataGridViewCaseList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dataGridViewCaseList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCaseList.AutoGenerateColumns = false;
             this.dataGridViewCaseList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCaseList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.窓口DataGridViewTextBoxColumn,
@@ -141,16 +148,17 @@
             this.クライアント名DataGridViewTextBoxColumn,
             this.クライアント整理番号DataGridViewTextBoxColumn,
             this.期限DataGridViewTextBoxColumn});
+            this.dataGridViewCaseList.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewCaseList.DataSource = this.dataTableCaseListBindingSource;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewCaseList.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewCaseList.Location = new System.Drawing.Point(36, 130);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCaseList.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewCaseList.Location = new System.Drawing.Point(36, 156);
             this.dataGridViewCaseList.Name = "dataGridViewCaseList";
             this.dataGridViewCaseList.RowHeadersWidth = 51;
             this.dataGridViewCaseList.RowTemplate.Height = 21;
@@ -193,6 +201,52 @@
             this.期限DataGridViewTextBoxColumn.DataPropertyName = "期限";
             this.期限DataGridViewTextBoxColumn.HeaderText = "期限";
             this.期限DataGridViewTextBoxColumn.Name = "期限DataGridViewTextBoxColumn";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.コメント作成ToolStripMenuItem,
+            this.データ準備ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(132, 48);
+            // 
+            // コメント作成ToolStripMenuItem
+            // 
+            this.コメント作成ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.コメント一般作成ToolStripMenuItem,
+            this.コメントソニー作成ToolStripMenuItem});
+            this.コメント作成ToolStripMenuItem.Name = "コメント作成ToolStripMenuItem";
+            this.コメント作成ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.コメント作成ToolStripMenuItem.Text = "コメント作成";
+            // 
+            // コメント一般作成ToolStripMenuItem
+            // 
+            this.コメント一般作成ToolStripMenuItem.Name = "コメント一般作成ToolStripMenuItem";
+            this.コメント一般作成ToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.コメント一般作成ToolStripMenuItem.Text = "コメント（一般）作成";
+            this.コメント一般作成ToolStripMenuItem.Click += new System.EventHandler(this.コメント一般作成ToolStripMenuItem_Click);
+            // 
+            // コメントソニー作成ToolStripMenuItem
+            // 
+            this.コメントソニー作成ToolStripMenuItem.Name = "コメントソニー作成ToolStripMenuItem";
+            this.コメントソニー作成ToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.コメントソニー作成ToolStripMenuItem.Text = "コメント（ソニー）作成";
+            this.コメントソニー作成ToolStripMenuItem.Click += new System.EventHandler(this.コメントソニー作成ToolStripMenuItem_Click);
+            // 
+            // データ準備ToolStripMenuItem
+            // 
+            this.データ準備ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.最終データ準備ToolStripMenuItem});
+            this.データ準備ToolStripMenuItem.Name = "データ準備ToolStripMenuItem";
+            this.データ準備ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.データ準備ToolStripMenuItem.Text = "データ準備";
+            // 
+            // 最終データ準備ToolStripMenuItem
+            // 
+            this.最終データ準備ToolStripMenuItem.Name = "最終データ準備ToolStripMenuItem";
+            this.最終データ準備ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.最終データ準備ToolStripMenuItem.Text = "最終データ準備";
+            this.最終データ準備ToolStripMenuItem.Click += new System.EventHandler(this.最終データ準備ToolStripMenuItem_Click);
             // 
             // dataTableCaseListBindingSource
             // 
@@ -285,7 +339,7 @@
             this.buttonUpDate.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.buttonUpDate.Location = new System.Drawing.Point(623, 26);
             this.buttonUpDate.Name = "buttonUpDate";
-            this.buttonUpDate.Size = new System.Drawing.Size(141, 54);
+            this.buttonUpDate.Size = new System.Drawing.Size(141, 64);
             this.buttonUpDate.TabIndex = 14;
             this.buttonUpDate.Text = "チェックボックス反映";
             this.buttonUpDate.UseVisualStyleBackColor = true;
@@ -306,7 +360,7 @@
             // 
             this.linkLabelCaseThread.AutoSize = true;
             this.linkLabelCaseThread.Font = new System.Drawing.Font("メイリオ", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.linkLabelCaseThread.Location = new System.Drawing.Point(1168, 130);
+            this.linkLabelCaseThread.Location = new System.Drawing.Point(1168, 156);
             this.linkLabelCaseThread.Name = "linkLabelCaseThread";
             this.linkLabelCaseThread.Size = new System.Drawing.Size(159, 36);
             this.linkLabelCaseThread.TabIndex = 16;
@@ -318,7 +372,7 @@
             // 
             this.linkLabelClientInformation.AutoSize = true;
             this.linkLabelClientInformation.Font = new System.Drawing.Font("メイリオ", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.linkLabelClientInformation.Location = new System.Drawing.Point(1168, 210);
+            this.linkLabelClientInformation.Location = new System.Drawing.Point(1168, 223);
             this.linkLabelClientInformation.Name = "linkLabelClientInformation";
             this.linkLabelClientInformation.Size = new System.Drawing.Size(111, 36);
             this.linkLabelClientInformation.TabIndex = 17;
@@ -330,7 +384,7 @@
             // 
             this.linkLabelElectricalWrapper.AutoSize = true;
             this.linkLabelElectricalWrapper.Font = new System.Drawing.Font("メイリオ", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.linkLabelElectricalWrapper.Location = new System.Drawing.Point(1168, 291);
+            this.linkLabelElectricalWrapper.Location = new System.Drawing.Point(1168, 284);
             this.linkLabelElectricalWrapper.Name = "linkLabelElectricalWrapper";
             this.linkLabelElectricalWrapper.Size = new System.Drawing.Size(116, 36);
             this.linkLabelElectricalWrapper.TabIndex = 18;
@@ -342,7 +396,7 @@
             // 
             this.linkLabelElectricalLibrary.AutoSize = true;
             this.linkLabelElectricalLibrary.Font = new System.Drawing.Font("メイリオ", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.linkLabelElectricalLibrary.Location = new System.Drawing.Point(1168, 364);
+            this.linkLabelElectricalLibrary.Location = new System.Drawing.Point(1168, 353);
             this.linkLabelElectricalLibrary.Name = "linkLabelElectricalLibrary";
             this.linkLabelElectricalLibrary.Size = new System.Drawing.Size(104, 36);
             this.linkLabelElectricalLibrary.TabIndex = 19;
@@ -498,7 +552,7 @@
             this.buttonStore.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.buttonStore.Location = new System.Drawing.Point(457, 26);
             this.buttonStore.Name = "buttonStore";
-            this.buttonStore.Size = new System.Drawing.Size(147, 54);
+            this.buttonStore.Size = new System.Drawing.Size(147, 64);
             this.buttonStore.TabIndex = 47;
             this.buttonStore.Text = "DB保存";
             this.buttonStore.UseVisualStyleBackColor = true;
@@ -548,17 +602,6 @@
             this.checkBoxOthers.Text = "その他";
             this.checkBoxOthers.UseVisualStyleBackColor = true;
             // 
-            // buttonComment
-            // 
-            this.buttonComment.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonComment.Location = new System.Drawing.Point(787, 303);
-            this.buttonComment.Name = "buttonComment";
-            this.buttonComment.Size = new System.Drawing.Size(182, 65);
-            this.buttonComment.TabIndex = 52;
-            this.buttonComment.Text = "コメント作成";
-            this.buttonComment.UseVisualStyleBackColor = true;
-            this.buttonComment.Click += new System.EventHandler(this.buttonComment_Click);
-            // 
             // buttonRestart
             // 
             this.buttonRestart.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -570,13 +613,24 @@
             this.buttonRestart.UseVisualStyleBackColor = true;
             this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
             // 
+            // buttonWebAccess
+            // 
+            this.buttonWebAccess.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonWebAccess.Location = new System.Drawing.Point(787, 325);
+            this.buttonWebAccess.Name = "buttonWebAccess";
+            this.buttonWebAccess.Size = new System.Drawing.Size(147, 64);
+            this.buttonWebAccess.TabIndex = 54;
+            this.buttonWebAccess.Text = "seleniumテスト";
+            this.buttonWebAccess.UseVisualStyleBackColor = true;
+            this.buttonWebAccess.Click += new System.EventHandler(this.buttonWebAccess_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 739);
+            this.Controls.Add(this.buttonWebAccess);
             this.Controls.Add(this.buttonRestart);
-            this.Controls.Add(this.buttonComment);
             this.Controls.Add(this.checkBoxOthers);
             this.Controls.Add(this.textBoxFiledDate);
             this.Controls.Add(this.buttonFiledDate);
@@ -616,6 +670,7 @@
             this.Text = "進捗管理システム";
             this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCaseList)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataTableCaseListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.caseList)).EndInit();
             this.ResumeLayout(false);
@@ -668,8 +723,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 期限DataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource dataTableCaseListBindingSource;
         private System.Windows.Forms.CheckBox checkBoxOthers;
-        private System.Windows.Forms.Button buttonComment;
         private System.Windows.Forms.Button buttonRestart;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem コメント作成ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem コメント一般作成ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem コメントソニー作成ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem データ準備ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 最終データ準備ToolStripMenuItem;
+        private System.Windows.Forms.Button buttonWebAccess;
     }
 }
 

@@ -14,6 +14,12 @@ using System.Windows.Forms;
 //ワード操作用
 using Microsoft.Office.Interop.Word;
 using Word = Microsoft.Office.Interop.Word;
+using System.Reflection;
+//selenium(Chrome)操作用
+using System.IO;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
 
 namespace ProgressManagementSystem
 {
@@ -152,7 +158,7 @@ namespace ProgressManagementSystem
                 //庁提出日表示
                 textBoxFiledDate.Text = clickedCase.FiledDate == null ? "" : clickedCase.FiledDate.Value.ToShortDateString();
                 //メモ表示
-                textBoxNote.Text = clickedCase.Note.ToString();
+                textBoxNote.Text = clickedCase.Note == null ? "" : clickedCase.Note.ToString();
 
             }
             else { }
@@ -617,27 +623,65 @@ namespace ProgressManagementSystem
             System.Windows.Forms.Application.Restart();
         }
 
-        //コメント作成ボタン
-        private void buttonComment_Click(object sender, EventArgs e)
+        private void WordReplace(Word.Application word, string text1, string text2)
         {
+            object oFindText = text1;
+            object oReplaceText = text2;
+            //            object oFindText = "日付";
+            //            object oReplaceText = DateTime.Now.ToLongDateString();
+            object oTru = true;
+            object oFal = false;
+            object oFindStop = Microsoft.Office.Interop.Word.WdFindWrap.wdFindStop;
+            object oMis = Missing.Value;
+            object oNoReplace = Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll;
+            bool foundPrefix = word.Selection.Find.Execute(
+                ref oFindText,// FindText: 特殊文字あり注意。
+                              //   You can search for special characters by specifying appropriate character codes.
+                              //   For example, "^p" corresponds to a paragraph mark and "^t" corresponds to a tab character. 
+                ref oTru,// MatchCase: True to specify that the find text be case-sensitive.
+                ref oFal,// MatchWholeWord: 単語単位での検索
+                ref oFal,// MatchWildcards
+                false,// MatchSoundsLike: あいまい検索
+                ref oFal,// MatchAllWordForms:
+                         //   True to have the find operation locate all forms of the find text (for example, "sit" locates "sitting" and "sat").
+                ref oTru,// Forward: Trueで前方検索
+                ref oFindStop,// Wrap: 検索しきった後に、最初から検索しなおすかどうかを指定する
+                ref oMis,// Format: よくわからない
+                ref oReplaceText,// ReplaceWith
+                ref oNoReplace,// Replace: ここではReplaceしない指定とする (oMisでもよいのかも)
+                ref oMis,// MatchKashida: アラビア語関連の機能らしい。
+                ref oMis,// MatchDiacritics: 右から左に読む言語関連の機能らしい。
+                ref oMis,// MatchAlefHamza: アラビア語関連の機能らしい。
+                ref oMis // MatchControl: 右から左に読む言語関連の機能らしい。
+            );
+            Console.WriteLine(foundPrefix.ToString());
+        }
 
+        //コンテキストメニュー、コメント作成、コメント（一般）作成
+        private void コメント一般作成ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             try
             {
-
                 // Word アプリケーションオブジェクトを作成
                 Word.Application word = new Word.Application();
                 // Word の GUI を起動しないようにする
                 word.Visible = false;
 
                 // テンプレ（ひな形）を開く
-                Document document = word.Documents.Open("C:Users//yoshi//OneDrive//デスクトップ//コメントひな形.docx");
+                Document document = word.Documents.Open("C:Users//yoshi//OneDrive//デスクトップ//コメント（一般）ひな形.docx");
 
-                // テキストを追加
-                addTextSample(ref document, WdColorIndex.wdGreen, "Hello, ");
-                addTextSample(ref document, WdColorIndex.wdRed, "World");
+                //選択されたケース番号のケースにする
+                Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
 
-                // ファイル名"out.docx"で保存
-                object filename = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/" + "out.docx";
+                WordReplace(word, "日付", DateTime.Now.ToLongDateString());
+                WordReplace(word, "出願人", clickedCase.ClientName);
+                WordReplace(word, "知財担当者 様", clickedCase.ClientContact + " 様");
+                WordReplace(word, "貴社整理番号", "貴社整理番号：" + clickedCase.ClientReference);
+                WordReplace(word, "弊所整理番号", "弊所整理番号：" + clickedCase.CaseNumber);
+                WordReplace(word, "応答期限", "応答期限：" + clickedCase.DueDate.Value.ToLongDateString());
+
+                // 名前を付けて保存
+                object filename = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/" + clickedCase.ClientReference + "_弊所コメント.docx";
                 document.SaveAs2(ref filename);
 
                 // 文書を閉じる
@@ -647,6 +691,7 @@ namespace ProgressManagementSystem
                 word = null;
 
                 Console.WriteLine("Document created successfully !");
+                MessageBox.Show("作成完了。ファイルをデスクトップに置きます。");
             }
             catch (Exception ex)
             {
@@ -654,21 +699,76 @@ namespace ProgressManagementSystem
             }
         }
 
-        /// 文書の末尾位置を取得する.
-        private static int getLastPosition(ref Document document)
+        //コンテキストメニュー、コメント作成、コメント（ソニー）作成
+        private void コメントソニー作成ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            return document.Content.End - 1;
+            try
+            {
+                // Word アプリケーションオブジェクトを作成
+                Word.Application word = new Word.Application();
+                // Word の GUI を起動しないようにする
+                word.Visible = false;
+
+                // テンプレ（ひな形）を開く
+                Document document = word.Documents.Open("C:Users//yoshi//OneDrive//デスクトップ//コメント（ソニー）ひな形.docx");
+
+                //選択されたケース番号のケースにする
+                Case clickedCase = cases.Where(@case => @case.CaseNumber == dataGridViewCaseList.Rows[RowNumber].Cells[2].Value.ToString()).First();
+
+                WordReplace(word, "整理番号：", "貴社整理番号：" + clickedCase.ClientReference);
+
+                // 名前を付けて保存
+                object filename = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/" + clickedCase.ClientReference + "_弊所コメント.docx";
+                document.SaveAs2(ref filename);
+
+                // 文書を閉じる
+                document.Close();
+                document = null;
+                word.Quit();
+                word = null;
+
+                Console.WriteLine("Document created successfully !");
+                MessageBox.Show("作成完了。ファイルをデスクトップに置きます。");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        /// 文書の末尾にテキストを追加する.
-        private static void addTextSample(ref Document document, WdColorIndex color, string text)
+        //コンテキストメニュー、データ準備、最終データ準備
+        private void 最終データ準備ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int before = getLastPosition(ref document);
-            Range rng = document.Range(document.Content.End - 1, document.Content.End - 1);
-            rng.Text += text;
-            int after = getLastPosition(ref document);
+            Form2 f = new Form2();
+            f.ShowDialog(this);
+            f.Dispose();
+        }
 
-            document.Range(before, after).Font.ColorIndex = color;
+        //seleniumテストボタン
+        private void buttonWebAccess_Click(object sender, EventArgs e)
+        {
+            // Webドライバーのインスタンス化
+            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+
+            // URLに移動します。
+//            driver.Navigate().GoToUrl(@"https://www.google.co.jp/");
+            driver.Navigate().GoToUrl(@"https://patents.google.com/");
+
+            // 検索をするInputタグを取得
+            IWebElement textbox = driver.FindElement(By.Name("q"));
+
+            // テキストを打ち込む
+//            textbox.SendKeys("はなちるのマイノート");
+            textbox.SendKeys("JP2018026624A");
+
+            // 送信(検索)
+            textbox.Submit();
+
+            // なにかコンソールに文字を入力したらクロームを閉じる
+//            Console.ReadKey();
+//            Console.Read();
+//            driver.Quit();
+
         }
     }
 }

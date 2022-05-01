@@ -767,7 +767,7 @@ namespace ProgressManagementSystem
             // なにかコンソールに文字を入力したらクロームを閉じる
 //            Console.ReadKey();
 //            Console.Read();
-//            driver.Quit();
+            driver.Quit();
 
         }
     }

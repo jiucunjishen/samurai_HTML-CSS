@@ -762,12 +762,22 @@ namespace ProgressManagementSystem
             textbox.SendKeys("JP2018026624A");
 
             // 送信(検索)
-            textbox.Submit();
+            // textbox.Submit();
+
+            IWebElement button = driver.FindElement(By.Id("searchButton"));
+            button.Click();
+
+            System.Threading.Thread.Sleep(5000);
+
+            List<IWebElement> links = driver.FindElements(By.TagName("a")).ToList();
+            IWebElement link = links.Where(l => l.GetAttribute("href").StartsWith("https://patentimages.storage.googleapis.com/")).FirstOrDefault();
+            link.Click();
+
 
             // なにかコンソールに文字を入力したらクロームを閉じる
-//            Console.ReadKey();
-//            Console.Read();
-            driver.Quit();
+            //            Console.ReadKey();
+            //            Console.Read();
+//            driver.Quit();
 
         }
     }
